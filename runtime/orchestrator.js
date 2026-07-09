@@ -118,12 +118,14 @@ class StoriaOrchestrator {
     const DiffEngine = require('./diff-engine');
     const Optimizer = require('./optimizer');
     const WorkflowEngine = require('./workflow-engine');
+    const PersonaEngine = require('./persona-engine');
 
     this.stateManager = new StateManager({ storiaDir: this.storiaDir });
     this.synthesizer = new Synthesizer();
     this.validator = new Validator();
     this.diffEngine = new DiffEngine();
     this.optimizer = new Optimizer();
+    this.personaEngine = new PersonaEngine();
     this.workflowEngine = new WorkflowEngine({
       engineRegistry: {
         'orchestrator': this,
@@ -133,7 +135,9 @@ class StoriaOrchestrator {
         'validator': this.validator,
         'diff-engine': this.diffEngine,
         'diffEngine': this.diffEngine,
-        'optimizer': this.optimizer
+        'optimizer': this.optimizer,
+        'persona-engine': this.personaEngine,
+        'personaEngine': this.personaEngine
       }
     });
 

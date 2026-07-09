@@ -781,6 +781,136 @@ function testOptimizer() {
   });
 }
 
+function testPersonaEngine() {
+  console.log('\nPersona Engine');
+
+  const path = require('path');
+  const PersonaEngine = require('./persona-engine');
+  const personasDir = path.join(__dirname, '..', 'personas');
+
+  test('loads novelist persona', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const config = pe.loadPersona('novelist');
+    assert.ok(config);
+    assert.strictEqual(config.persona_id, 'novelist');
+    assert.ok(config.tone);
+    assert.ok(config.writing_style);
+    assert.ok(config.engine_overrides);
+  });
+
+  test('loads fantasy-writer persona', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const config = pe.loadPersona('fantasy-writer');
+    assert.ok(config);
+    assert.strictEqual(config.persona_id, 'fantasy-writer');
+    assert.ok(config.tone.descriptive_density > 0.7);
+  });
+
+  test('returns null for unknown persona', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const config = pe.loadPersona('nonexistent-persona');
+    assert.strictEqual(config, null);
+  });
+
+  test('resolve defaults to novelist when no stack provided', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({});
+    assert.ok(result.persona_ids.includes('novelist'));
+    assert.ok(result.composed.tone);
+    assert.ok(result.composed.writing_style);
+  });
+
+  test('resolve loads specified primary persona', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'fantasy-writer' });
+    assert.ok(result.persona_ids.includes('fantasy-writer'));
+  });
+
+  test('resolve composes primary + secondary with primary taking priority', () => {
+    const pe = new PersonaEngine({ personasDir });
+    // Novelist has formality 0.5, fantasy-writer has formality 0.7
+    // Primary gets priority, so formality should match primary
+    const result = pe.resolve({ primary: 'novelist', secondary: 'fantasy-writer' });
+    assert.strictEqual(result.composed.tone.formality, 0.5); // primary wins
+  });
+
+  test('resolve makes primary persona values take precedence', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist', secondary: 'fantasy-writer' });
+    // Novelist has formality 0.5, fantasy-writer has 0.7 — primary wins
+    assert.strictEqual(result.composed.tone.formality, 0.5);
+    // Novelist has descriptive_density 0.6, fantasy-writer has 0.85 — primary wins
+    assert.strictEqual(result.composed.tone.descriptive_density, 0.6);
+  });
+
+  test('resolve returns delta from defaults', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist' });
+    assert.ok(result.delta);
+    assert.ok(Object.keys(result.delta).length > 0);
+  });
+
+  test('resolve handles stack with all roles', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist', secondary: 'fantasy-writer', style: 'poet' });
+    assert.ok(result.persona_ids.length >= 2);
+    assert.ok(result.composed.tone);
+  });
+
+  test('listPersonas returns all available personas', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const list = pe.listPersonas();
+    // Should have at least ~49 personas
+    assert.ok(list.length >= 40);
+    const novelist = list.find(p => p.id === 'novelist');
+    assert.ok(novelist);
+    assert.strictEqual(novelist.category, 'literary');
+  });
+
+  test('listPersonas includes tags and genres', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const list = pe.listPersonas();
+    const fantasy = list.find(p => p.id === 'fantasy-writer');
+    assert.ok(fantasy);
+    assert.ok(fantasy.tags.length > 0);
+    assert.ok(fantasy.supported_genres.length > 0);
+  });
+
+  test('prompt_prefixes are concatenated from multiple personas', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist', secondary: 'fantasy-writer' });
+    assert.ok(result.composed.prompt_prefix);
+  });
+
+  test('cache returns same config on repeated load', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const c1 = pe.loadPersona('novelist');
+    const c2 = pe.loadPersona('novelist');
+    assert.strictEqual(c1, c2);
+  });
+
+  test('clearCache forces reload', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const c1 = pe.loadPersona('novelist');
+    pe.clearCache();
+    const c2 = pe.loadPersona('novelist');
+    assert.ok(c2);
+  });
+
+  test('engine_overrides are merged from multiple personas', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist', secondary: 'fantasy-writer' });
+    const enabled = result.composed.engine_overrides.reason_modules.enabled;
+    assert.ok(enabled.length > 0);
+  });
+
+  test('constraints max_sentence_length picks the strictest', () => {
+    const pe = new PersonaEngine({ personasDir });
+    const result = pe.resolve({ primary: 'novelist' });
+    assert.ok(result.composed.constraints.max_sentence_length <= 80);
+  });
+}
+
 function testWorkflowEngine() {
   console.log('\nWorkflow Engine');
 
@@ -951,6 +1081,7 @@ function testOrchestratorIntegration() {
     assert.ok(o.validator);
     assert.ok(o.diffEngine);
     assert.ok(o.optimizer);
+    assert.ok(o.personaEngine);
     fs.rmSync(tmpDir, { recursive: true });
   });
 
@@ -991,6 +1122,7 @@ function testOrchestratorIntegration() {
   testValidator();
   testDiffEngine();
   testOptimizer();
+  testPersonaEngine();
   testWorkflowEngine();
   testOrchestratorIntegration();
 
