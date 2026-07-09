@@ -1,0 +1,10 @@
+{
+  "name": "@storia/sample-pack",
+  "version": "0.1.0",
+  "description": "Minimal example of a Storia extension",
+  "storia": "^0.1.0",
+  "personas": 1,
+  "workflows": 1,
+  "provides": ["dream-interpreter-persona", "dream-sequence-workflow"],
+  "requires": ["storia-core@>=0.1.0"]
+}

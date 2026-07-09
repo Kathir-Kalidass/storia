@@ -1,6 +1,6 @@
 {
   "name": "storia",
-  "version": "1.0.0-alpha.1",
+  "version": "0.1.0-alpha.1",
   "description": "Narrative Intelligence Agent Skill — install with npx skills add Kathir-Kalidass/storia",
   "keywords": [
     "agent-skill", "ai", "llm", "storytelling", "narrative", "writing",
@@ -65,8 +65,11 @@
     "capabilities/",
     "docs/",
     "SKILL.md",
+    "CAPABILITIES.md",
+    "EXTENSIONS.md",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "extensions/"
   ],
   "scripts": {
     "test": "node runtime/test.js && node lib/sdk.test.js && node test/contract.test.js",

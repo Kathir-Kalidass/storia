@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0-alpha.1] — 2026-07-10
+## [0.1.0-alpha.1] — 2026-07-10
 
 ### Added
 - SDK: Storia class with three-layer API (run, save, load, health, export, import)
@@ -25,7 +25,7 @@
 - Runtime: Narrative Intelligence Engine (15 Reason + 6 Guide + 8 Verify modules)
 - Runtime: Prompt Engine (template loading/composition)
 - Runtime: Schema Validator (15 JSON Schema files, zero-dependency)
-- Personas: 49 personas across 12 categories
+- Personas: 68 personas across 12 categories
 - Workflows: 16 narrative workflow configurations
 - Prompts: 23 prompt templates
 - Schemas: 15 canonical JSON schemas
@@ -47,6 +47,16 @@
 - No circular dependencies
 - ESM + CJS exports
 - npm pack: 264 kB packed, 237 files
+
+- npm pack: 392 kB packed (added extensions, CAPABILITIES, EXTENSIONS docs)
+
+### Added (pre-release)
+- Extensions directory with sample pack (manifest.json + SKILL.md)
+- CAPABILITIES.md — machine-readable capability index for agent inspection
+- EXTENSIONS.md — extension authoring guide with layout, manifests, contract tests
+- SKILL.md: Input/Output contract section for explicit agent guidance
+- Persona count corrected: 68 (was 49 in earlier docs)
+- Version changed to 0.1.0-alpha.1 to reflect Alpha status
 
 ### Tests
 - 162 runtime tests

@@ -26,6 +26,21 @@ optimizes context so the LLM produces better long-form fiction.
 User Request → Capability Registry → Workflow → Persona Stack → Story State → Engines → Output
 ```
 
+## Input / Output Contract
+
+| Direction | Field | Description |
+|---|---|---|
+| Input | `prompt` | User's narrative request or instruction |
+| Input | `genre` | Genre hint (fantasy, mystery, romance, etc.) |
+| Input | `workflow` | Workflow ID (W001–W016) or workflow name |
+| Input | `personas` | Comma-separated persona names to activate |
+| Input | `constraints` | Pacing, tone, length, audience, language |
+| Input | `state` | Existing story state (if continuing a story) |
+| Output | `story` | Generated narrative output (text) |
+| Output | `updated_state` | Modified story state after the operation |
+| Output | `metadata` | Workflow used, personas activated, version info |
+| Output | `diagnostics` | Confidence scores, verification results, warnings |
+
 ## Three Routing Questions
 
 ### 1. When should I activate?
@@ -63,7 +78,7 @@ Read the Story State → load personas → select workflow → invoke engines �
 
 ## Persona System
 
-Storia ships with 49 composable personas across 12 categories. A writer can stack Primary + Secondary + Style + Language + Audience personas simultaneously.
+Storia ships with 68 composable personas across 12 categories. A writer can stack Primary + Secondary + Style + Language + Audience personas simultaneously.
 
 Personas are in `personas/{category}/{persona-name}/SKILL.md`.
 
@@ -93,6 +108,12 @@ Storia maintains a two-layer Story State:
 - **Archive State** (unlimited) — past scenes, completed arcs, resolved mysteries, revision history
 
 State is persisted at `~/.config/storia/{story-id}/`.
+
+## Extensions
+
+Storia supports extensions that add personas, workflows, prompts, and capabilities. See `EXTENSIONS.md` for the extension authoring guide. The `extensions/` directory contains a `sample-pack/` as a minimal example.
+
+Extensions can be distributed as npm packages (`@storia/*`) or placed directly in the project's `extensions/` directory.
 
 ## Getting Started
 
