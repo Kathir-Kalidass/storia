@@ -1,0 +1,291 @@
+{
+  "_version": "1.0.0",
+  "metadata": {
+    "story_id": "story_kd93_abc123",
+    "title": "The Stars Are Wounds",
+    "genre": ["fantasy", "dark fantasy"],
+    "language": "en",
+    "secondary_languages": [],
+    "themes": ["knowledge vs safety", "truth and heresy", "survivor's guilt", "the cost of progress"],
+    "target_audience": "adult",
+    "tone": "somber",
+    "pov": "third-limited",
+    "narrative_style": "literary",
+    "status": "writing",
+    "current_chapter": 3,
+    "total_chapters": 18,
+    "word_count_target": 95000,
+    "active_personas": {
+      "primary": "fantasy-writer",
+      "secondary": "novelist",
+      "style": "poetic",
+      "language": null,
+      "audience": "adult-reader"
+    },
+    "created_at": "2026-07-08T10:30:00Z",
+    "updated_at": "2026-07-10T14:22:00Z"
+  },
+  "dna": {
+    "core_themes": ["knowledge_vs_safety", "truth_and_heresy"],
+    "symbols": {
+      "stars": "wounds in the celestial dome",
+      "telescope": "the weapon of discovery",
+      "dome": "ignorance as protection"
+    },
+    "motifs": ["light through cracks", "things that should not be seen", "forbidden knowledge"],
+    "tone_profile": {
+      "formality": 0.6,
+      "darkness": 0.7,
+      "humor": 0.1,
+      "emotional_intensity": 0.75,
+      "poetic_density": 0.6
+    },
+    "writing_style": {
+      "sentence_length_target": "varied",
+      "dialogue_ratio": 0.35,
+      "narrative_distance": "close",
+      "show_vs_tell": 0.7
+    },
+    "genre_rules": [
+      { "rule": "magic_system_rules", "description": "Magic must have identifiable limits or costs", "severity": "required" },
+      { "rule": "internal_consistency", "description": "Fantastical elements require internal consistency", "severity": "required" }
+    ],
+    "forbidden_patterns": ["anachronistic_technology", "modern_colloquialisms"],
+    "promises_to_reader": ["The nature of the stars will be revealed", "Elara will face a moral choice", "The beings beyond will be shown"]
+  },
+  "characters": {
+    "elara": {
+      "character_id": "elara",
+      "name": "Elara Voss",
+      "active": true,
+      "location": "observatory_tower",
+      "physical_state": {
+        "fatigue": 0.6,
+        "hunger": 0.3
+      },
+      "emotional_state": {
+        "primary_emotion": "determination",
+        "secondary_emotion": "fear",
+        "intensity": 0.8
+      },
+      "relationships": {
+        "warden_blackwood": {
+          "target": "warden_blackwood",
+          "type": "antagonist",
+          "strength": -0.8
+        },
+        "captain_marwick": {
+          "target": "captain_marwick",
+          "type": "ally",
+          "strength": 0.4
+        }
+      },
+      "voice_profile": {
+        "vocabulary_tier": "advanced",
+        "sentence_length": "varied",
+        "humor_style": "dry",
+        "education_level": "academic",
+        "emotional_expression": "reserved"
+      },
+      "arc_progress": 0.25,
+      "active_goals": ["prove_celestial_dome_theory", "clear_her_name"],
+      "active_conflicts": ["institutional_opposition", "self_doubt"],
+      "scene_count": 5
+    },
+    "captain_marwick": {
+      "character_id": "captain_marwick",
+      "name": "Captain Silas Marwick",
+      "active": true,
+      "location": "dockside_tavern",
+      "physical_state": {
+        "fatigue": 0.2
+      },
+      "emotional_state": {
+        "primary_emotion": "guilt",
+        "intensity": 0.85
+      },
+      "relationships": {
+        "elara": {
+          "target": "elara",
+          "type": "reluctant_ally",
+          "strength": 0.4
+        }
+      },
+      "voice_profile": {
+        "vocabulary_tier": "moderate",
+        "sentence_length": "short",
+        "dialect_markers": ["nautical_slang"],
+        "humor_style": "dark",
+        "education_level": "self-taught",
+        "emotional_expression": "reserved"
+      },
+      "arc_progress": 0.15,
+      "active_goals": ["protect_current_crew", "find_redemption"],
+      "active_conflicts": ["survivors_guilt"],
+      "scene_count": 3
+    },
+    "warden_blackwood": {
+      "character_id": "warden_blackwood",
+      "name": "Warden Aldric Blackwood",
+      "active": true,
+      "location": "grand_temple",
+      "emotional_state": {
+        "primary_emotion": "conviction",
+        "intensity": 0.9
+      },
+      "relationships": {
+        "elara": {
+          "target": "elara",
+          "type": "antagonist",
+          "strength": -0.8
+        }
+      },
+      "voice_profile": {
+        "vocabulary_tier": "advanced",
+        "sentence_length": "long",
+        "education_level": "formal",
+        "emotional_expression": "calculated"
+      },
+      "arc_progress": 0.1,
+      "active_goals": ["preserve_the_dome", "silence_elara"],
+      "scene_count": 3
+    }
+  },
+  "world": {
+    "active_locations": {
+      "observatory_tower": {
+        "location_id": "loc_obs",
+        "name": "Observatory Tower",
+        "type": "tower",
+        "region": "capital_city",
+        "notable_features": ["grand_telescope", "star_charts", "sealed_archives"],
+        "connected_locations": ["grand_temple", "university"]
+      },
+      "dockside_tavern": {
+        "location_id": "loc_dock",
+        "name": "The Drowned Star",
+        "type": "tavern",
+        "region": "harbor_district",
+        "notable_features": ["hidden_basement", "private_dock"],
+        "connected_locations": ["observatory_tower", "open_sea"]
+      },
+      "grand_temple": {
+        "location_id": "loc_temple",
+        "name": "Temple of the Celestial Order",
+        "type": "temple",
+        "region": "capital_city",
+        "notable_features": ["dome_observatory", "heretic_cells", "council_chamber"],
+        "connected_locations": ["observatory_tower"]
+      }
+    }
+  },
+  "timeline": {
+    "current_time": "2026-07-10T14:22:00Z",
+    "current_season": "autumn",
+    "time_since_start": 14,
+    "time_unit": "days",
+    "current_year": 1247,
+    "era": "Age of the Celestial Order",
+    "chronological_markers": [
+      { "marker_id": "ch001", "label": "The Heresy", "time": "2026-07-08T10:30:00Z", "description": "Elara is stripped of her academic rank" },
+      { "marker_id": "ch002", "label": "The Evidence", "time": "2026-07-09T08:00:00Z", "description": "Elara proves the stars are holes" },
+      { "marker_id": "ch003", "label": "The Hunt", "time": "2026-07-10T06:00:00Z", "description": "Blackwood's wardens begin pursuit" }
+    ]
+  },
+  "reader": {
+    "open_questions": [
+      { "question_id": "q001", "question": "What are the beings beyond the dome?", "raised_at": "2026-07-08T10:30:00Z", "importance": 0.95 },
+      { "question_id": "q002", "question": "Why did Elara survive the purge?", "raised_at": "2026-07-08T14:00:00Z", "importance": 0.8 },
+      { "question_id": "q003", "question": "What happened to Marwick's crew?", "raised_at": "2026-07-09T08:00:00Z", "importance": 0.7 }
+    ],
+    "cognitive_load": 0.4,
+    "suspense_level": 0.7,
+    "emotional_curve": [
+      { "scene_id": "ch001-sc001", "emotion": "shock", "intensity": 0.7 },
+      { "scene_id": "ch001-sc002", "emotion": "determination", "intensity": 0.6 },
+      { "scene_id": "ch002-sc001", "emotion": "wonder", "intensity": 0.8 },
+      { "scene_id": "ch002-sc002", "emotion": "fear", "intensity": 0.75 },
+      { "scene_id": "ch003-sc001", "emotion": "tension", "intensity": 0.85 }
+    ]
+  },
+  "plot": {
+    "main_plot_progress": 0.17,
+    "act_structure": {
+      "structure_type": "five_act",
+      "current_act": 1,
+      "total_acts": 5
+    },
+    "active_subplots": [
+      {
+        "subplot_id": "sp001",
+        "name": "Marwick's Redemption",
+        "progress": 0.1,
+        "connected_characters": ["captain_marwick"],
+        "resolution_planned": "act_4"
+      },
+      {
+        "subplot_id": "sp002",
+        "name": "The Heretic Underground",
+        "progress": 0.05,
+        "connected_characters": [],
+        "resolution_planned": "act_3"
+      }
+    ],
+    "open_mysteries": [
+      {
+        "mystery_id": "m001",
+        "question": "What lies beyond the celestial dome?",
+        "type": "revelation",
+        "importance": 1.0,
+        "reveal_by": "act_4"
+      },
+      {
+        "mystery_id": "m002",
+        "question": "Who built the dome and why?",
+        "type": "secret",
+        "importance": 0.8,
+        "reveal_by": "act_5"
+      }
+    ],
+    "active_conflicts": [
+      {
+        "conflict_id": "c001",
+        "type": "character_vs_society",
+        "parties": ["elara", "celestial_order"],
+        "stakes": "freedom vs imprisonment",
+        "intensity": 0.8
+      },
+      {
+        "conflict_id": "c002",
+        "type": "character_vs_self",
+        "parties": ["captain_marwick"],
+        "stakes": "redemption vs self-destruction",
+        "intensity": 0.6
+      }
+    ],
+    "foreshadowing_pending": [
+      {
+        "foreshadow_id": "f001",
+        "hint": "The grand telescope was built by someone who knew the truth",
+        "payoff_by": "act_3",
+        "subtlety": 0.7
+      },
+      {
+        "foreshadow_id": "f002",
+        "hint": "Marwick's lost crew were not all lost",
+        "payoff_by": "act_4",
+        "subtlety": 0.8
+      }
+    ],
+    "scene_count": 5,
+    "pacing_profile": {
+      "current_pace": "moderate",
+      "tension_curve": [0.3, 0.4, 0.6, 0.55, 0.7]
+    }
+  },
+  "scenes": {
+    "current_scene": "ch003-sc001",
+    "previous_scene": "ch002-sc002",
+    "connected_scenes": ["ch001-sc001", "ch001-sc002", "ch002-sc001", "ch002-sc002"]
+  }
+}

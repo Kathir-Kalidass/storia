@@ -249,7 +249,9 @@ class StoriaOrchestrator {
   }
 
   _generateId() {
-    return 'story_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+    const ts = Date.now().toString(36);
+    const rnd = Math.random().toString(36).slice(2, 8);
+    return `story-${ts}-${rnd}`;
   }
 }
 

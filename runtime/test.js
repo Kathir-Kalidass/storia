@@ -151,7 +151,7 @@ function testOrchestrator() {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'storia-test-'));
     const o = new StoriaOrchestrator({ storiaDir: tmpDir });
     const id = await o.createStory('Test Novel', 'fantasy', 'en', { themes: ['heroism'] });
-    assert.ok(id.startsWith('story_'));
+    assert.ok(id.startsWith('story-'));
     assert.ok(fs.existsSync(path.join(tmpDir, id, 'active.json')));
     assert.ok(fs.existsSync(path.join(tmpDir, id, 'archive', 'scenes')));
     // Cleanup
