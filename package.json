@@ -13,6 +13,7 @@
   "license": "MIT",
   "author": "Kathir Kalidass",
   "main": "lib/index.js",
+  "types": "lib/storia.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -31,9 +32,31 @@
   "engines": {
     "node": ">=18"
   },
+  "sideEffects": false,
   "files": [
-    "lib/",
-    "runtime/",
+    "lib/cli.js",
+    "lib/errors.js",
+    "lib/index.js",
+    "lib/interfaces.js",
+    "lib/logger.js",
+    "lib/retry.js",
+    "lib/security.js",
+    "lib/storia.js",
+    "lib/storia.d.ts",
+    "lib/telemetry.js",
+    "lib/adapters/",
+    "lib/plugins/",
+    "runtime/diff-engine.js",
+    "runtime/narrative-intelligence-engine.js",
+    "runtime/optimizer.js",
+    "runtime/orchestrator.js",
+    "runtime/persona-engine.js",
+    "runtime/prompt-engine.js",
+    "runtime/schema-validator.js",
+    "runtime/state-manager.js",
+    "runtime/synthesizer.js",
+    "runtime/validator.js",
+    "runtime/workflow-engine.js",
     "prompts/",
     "schemas/",
     "personas/",
@@ -45,10 +68,19 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node runtime/test.js",
+    "test": "node runtime/test.js && node lib/sdk.test.js && node test/contract.test.js",
+    "test:contract": "node test/contract.test.js",
+    "test:sdk": "node lib/sdk.test.js",
+    "test:runtime": "node runtime/test.js",
     "demo": "node examples/web-novel-demo.js",
     "cli": "node lib/cli.js",
-    "prepublishOnly": "node runtime/test.js"
+    "audit": "npm audit --production",
+    "outdated": "npm outdated --production",
+    "prepublishOnly": "npm test && npm audit --production"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "repository": {
     "type": "git",
