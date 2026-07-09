@@ -1,20 +1,15 @@
 # Storia Examples
 
-End-to-end walkthroughs and runnable demos showing how to use Storia as a Narrative Intelligence Platform.
+| Example | File | Description |
+|---------|------|-------------|
+| Minimal Story Generator | `minimal-story-generator.js` | 10-line story generator — the simplest possible usage |
+| Novel Project | `novel-project.js` | Save, load, resume a novel with the filesystem backend |
+| Express API | `express-api.js` | Embed Storia in an HTTP server with custom logger + telemetry |
 
-## Contents
-
-| File | What it shows |
-|------|---------------|
-| `story-planning-scenario.md` | Full novel planning workflow (W003) — from idea to structured outline |
-| `character-creation-scenario.md` | Character design workflow (W004) — from concept to detailed profile |
-| `fantasy-novel-state.json` | A rich, realistic Story State snapshot for a fantasy novel in progress |
-| `web-novel-demo.js` | Runnable Node.js script exercising the full orchestrator |
-
-## How to Run the Demo
+## Running
 
 ```bash
-node examples/web-novel-demo.js
+node examples/minimal-story-generator.js
+node examples/novel-project.js
+node examples/express-api.js    # Requires: npm install express (optional — runs standalone demo otherwise)
 ```
-
-This spins up the orchestrator, creates a story, detects intents, and traces execution through all engines.
