@@ -911,6 +911,197 @@ function testPersonaEngine() {
   });
 }
 
+function testNarrativeIntelligence() {
+  console.log('\nNarrative Intelligence Engine');
+
+  const NarrativeIntelligenceEngine = require('./narrative-intelligence-engine');
+
+  test('reason returns plot plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('plot', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.strictEqual(result.mode, 'plot');
+    assert.ok(result.outputs.length > 0);
+    assert.ok(result.prompts.length > 0);
+  });
+
+  test('reason returns story structure plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('structure', { metadata: { genre: ['fantasy'] }, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.length > 0);
+    assert.ok(result.outputs.some(o => o.type === 'act_structure'));
+  });
+
+  test('reason returns character psychology analysis', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('character', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'character_arcs'));
+  });
+
+  test('reason returns theme plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('theme', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'theme_map'));
+  });
+
+  test('reason returns conflict plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('conflict', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'conflict_map'));
+  });
+
+  test('reason returns mystery design', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('mystery', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'clue_map'));
+  });
+
+  test('reason returns foreshadowing plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('foreshadowing', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'foreshadowing_map'));
+  });
+
+  test('reason returns genre rules', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('genre', { metadata: { genre: ['fantasy'] }, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'genre_rules'));
+  });
+
+  test('reason returns series plan', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('series', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.outputs.some(o => o.type === 'series_arcs'));
+  });
+
+  test('reason returns ending analysis', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const state = { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: { open_mysteries: [], main_plot_progress: 0.5 }, scenes: {} };
+    const result = ni.reason('ending', state);
+    assert.ok(result.outputs.some(o => o.type === 'ending_readiness'));
+  });
+
+  test('reason returns error for unknown mode', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.reason('nonexistent', {});
+    assert.ok(result.error);
+  });
+
+  test('guide returns knowledge boundaries', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('knowledge-boundary', { characters: { elena: { knowledge: { secret: true } } }, metadata: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.constraints.length > 0);
+    assert.ok(result.context.character_knowledge);
+  });
+
+  test('guide returns character voice guide', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('character-voice', { characters: { elena: { voice: { vocabulary: 'formal' } } }, metadata: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.context.character_voices);
+  });
+
+  test('guide returns scene goal guide', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('scene-goal', { plot: { scene_count: 5, main_plot_progress: 0.3 }, metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, scenes: {} });
+    assert.ok(result.context.scene_count === 5);
+  });
+
+  test('guide returns timeline guide', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('timeline', { timeline: { current_time: 'day_3' }, metadata: {}, characters: {}, world: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.constraints.length > 0);
+  });
+
+  test('guide returns physical state guide', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('physical-state', { characters: { elena: { physical_state: { fatigue: 50 } } }, metadata: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.context.characters);
+  });
+
+  test('guide returns story DNA guide', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('story-dna', { dna: { core_themes: ['redemption'], tone_profile: {} }, metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.context.core_themes);
+  });
+
+  test('guide returns default constraints for unknown mode', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.guide('unknown-mode', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.constraints);
+    assert.ok(result.context);
+  });
+
+  test('verify checks continuity', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('continuity', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.checks.length > 0);
+    assert.ok('score' in result);
+    assert.ok('passed' in result);
+  });
+
+  test('verify detects character location conflicts', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('continuity', {
+      characters: { elena: { location: 'forest' }, john: { location: 'forest' } },
+      metadata: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {}
+    });
+    assert.ok(result.checks.some(c => c.name === 'character_location'));
+  });
+
+  test('verify checks plot holes', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('plot-hole', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.passed);
+  });
+
+  test('verify checks emotional arc', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('emotional-arc', { reader: { emotional_curve: Array(10).fill({ emotion: 'joy', intensity: 0.5 }) }, metadata: {}, characters: {}, world: {}, timeline: {}, plot: {}, scenes: {} });
+    assert.ok(result.checks.length > 0);
+  });
+
+  test('verify checks cognitive load', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('cognitive-load', { characters: { a: {}, b: {}, c: {} }, plot: { active_subplots: [], open_mysteries: [] }, metadata: {}, world: {}, timeline: {}, reader: {}, scenes: {} });
+    assert.ok(result.checks.some(c => c.name === 'cognitive_load'));
+  });
+
+  test('verify checks pacing', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('pacing', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} }, 'Short text.');
+    assert.ok(result.checks.some(c => c.name === 'scene_length'));
+  });
+
+  test('verify checks theme resonance', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('theme-resonance', { dna: { core_themes: ['redemption'] }, metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.checks.length > 0);
+  });
+
+  test('verify checks prose rhythm', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('prose-rhythm', { metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} }, 'This is a short sentence. And another. And a third one for variety.');
+    assert.ok(result.checks.some(c => c.name === 'sentence_variety'));
+  });
+
+  test('verify checks ending satisfaction', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('satisfaction', { plot: { open_mysteries: [], main_plot_progress: 0.95 }, metadata: {}, characters: {}, world: {}, timeline: {}, reader: {}, scenes: {} });
+    assert.ok(result.passed);
+  });
+
+  test('verify returns error for unknown mode', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.verify('nonexistent', {});
+    assert.ok(result.error);
+  });
+
+  test('delegates synthesize to internal synthesizer', () => {
+    const ni = new NarrativeIntelligenceEngine();
+    const result = ni.synthesize('Elena walked into the forest.', 'scene_001', { characters: { Elena: {} }, world: {}, timeline: {}, reader: {}, plot: {}, scenes: {} });
+    assert.ok(result.scene_id === 'scene_001');
+  });
+}
+
 function testWorkflowEngine() {
   console.log('\nWorkflow Engine');
 
@@ -1082,6 +1273,7 @@ function testOrchestratorIntegration() {
     assert.ok(o.diffEngine);
     assert.ok(o.optimizer);
     assert.ok(o.personaEngine);
+    assert.ok(o.niEngine);
     fs.rmSync(tmpDir, { recursive: true });
   });
 
@@ -1123,6 +1315,7 @@ function testOrchestratorIntegration() {
   testDiffEngine();
   testOptimizer();
   testPersonaEngine();
+  testNarrativeIntelligence();
   testWorkflowEngine();
   testOrchestratorIntegration();
 
