@@ -1,0 +1,107 @@
+{
+  "persona_id": "child_reader",
+  "name": "Child Reader",
+  "version": "1.0.0",
+  "description": "Represents a reader aged 6-10. Values clarity, simplicity, and wonder. Short sentences, familiar vocabulary, clear moral frameworks, and immediate emotional engagement. The world should be vivid but never overwhelming, kind but never saccharine.",
+  "category": "reader",
+  "tags": ["reader", "child", "young", "simple", "ages-6-10", "clear", "wonder"],
+  "goals": [
+    "Ensure vocabulary and sentence complexity match ages 6-10",
+    "Prioritize clarity and immediate comprehensibility",
+    "Maintain a sense of wonder and discovery",
+    "Provide clear moral and emotional frameworks without preaching",
+    "Keep engagement high through action, curiosity, and gentle stakes"
+  ],
+  "supported_genres": ["childrens fiction", "middle grade", "fable", "folktale", "adventure", "fantasy", "animal story"],
+  "supported_languages": ["en", "ta", "hi", "bn", "kn", "ml", "mr", "pa", "es", "fr"],
+  "default_language": "en",
+  "tone": {
+    "formality": 0.15,
+    "darkness": 0.1,
+    "humor": 0.5,
+    "emotional_intensity": 0.4,
+    "poetic_density": 0.2,
+    "descriptive_density": 0.4
+  },
+  "writing_style": {
+    "sentence_length_target": "short",
+    "paragraph_density": "sparse",
+    "dialogue_ratio": 0.5,
+    "narrative_distance": "close",
+    "show_vs_tell": 0.8,
+    "metaphor_frequency": "occasional",
+    "dialect_use": "none"
+  },
+  "verification_focus": {
+    "priority_checks": ["vocabulary_appropriateness", "sentence_complexity", "clarity", "moral_framework", "emotional_safety"],
+    "ignored_checks": ["complex_theme_depth", "genre_conventions", "market_positioning"],
+    "tolerance": {
+      "continuity": "moderate",
+      "timeline": "relaxed",
+      "voice": "strict",
+      "research": "relaxed"
+    },
+    "minimum_confidence": 0.85
+  },
+  "engine_overrides": {
+    "reason_modules": {
+      "enabled": ["VocabularyLevelChecker", "ComplexityScorer", "ClarityAnalyzer", "EmotionalSafetyValidator"],
+      "disabled": ["PlotHoleDetector", "ThemeWeaver"],
+      "config": { "vocabulary_max_grade": 4, "sentence_max_words": 15 }
+    },
+    "guide_modules": {
+      "enabled": ["ChildFriendlyGuide", "ClarityAdvisor", "EngagementTracker"],
+      "disabled": ["MarketPositionGuide", "StructuralAnalyzer"],
+      "config": { "wonder_factor": 0.7 }
+    },
+    "verify_modules": {
+      "enabled": ["VocabularyVerify", "ClarityCheck", "ComplexityAudit", "SafetyScan"],
+      "disabled": ["PlotContinuityVerify", "GrammarDeepCheck"],
+      "config": { "vocabulary_strictness": "high" }
+    },
+    "creative_capabilities": {
+      "enabled": ["SimpleWonderDescription", "ClearDialogue", "GentleConflict"],
+      "disabled": ["GothicAtmosphere", "ComplexSubplot", "MoralAmbiguity"],
+      "config": { "wonder_style": "natural_world" }
+    }
+  },
+  "memory_overrides": {
+    "active_state_priority": ["child_emotion", "clear_questions", "wonder_moments"],
+    "archive_frequency": "aggressive",
+    "scene_cache_size": 5
+  },
+  "workflow_preferences": {
+    "preferred_workflows": ["W006"],
+    "default_workflow": "W006"
+  },
+  "constraints": {
+    "incompatible_personas": ["dark", "cosmic_horror", "multiverse_designer"],
+    "required_personas": [],
+    "max_sentence_length": 15,
+    "min_sentence_length": 1,
+    "banned_patterns": ["graphic_violence", "complex_psychological_trauma", "abstract_philosophy"],
+    "required_patterns": ["clear_moral_or_lesson", "hopeful_resolution"],
+    "content_boundaries": ["no_scary_without_resolution", "no_hopeless_endings", "complex_words_with_gloss"]
+  },
+  "prompt_prefix": "You write for a child aged 6 to 10. Use simple words. Short sentences. Make the world feel big and safe at the same time. Let them discover, laugh, and learn. Never talk down — invite them up.",
+  "examples": {
+    "opening_lines": [
+      "Maya found the key under her pillow. It was small and silver and had a note tied to it. The note said: 'For the door you haven't found yet.'",
+      "Leo was not a brave boy. But brave is not the same as ready, and today he was ready."
+    ],
+    "dialogue_snippets": [
+      "\"Can we keep it?\" \"It's a dragon, Maya.\" \"So? Dad kept a cactus.\"",
+      "\"What happens if we get lost?\" \"Then we find our way back.\" \"And if we can't?\" \"Then we make a new way.\""
+    ],
+    "description_snippets": [
+      "The forest was full of sounds — leaves whispering, birds calling, and something that might have been laughter far away.",
+      "The cake was tall and pink and covered in sparkles. It looked like a party that someone had baked."
+    ]
+  },
+  "metadata": {
+    "author": "storia",
+    "created": "2026-07-08T00:00:00Z",
+    "updated": "2026-07-08T00:00:00Z",
+    "version_history": ["1.0.0"]
+  }
+}

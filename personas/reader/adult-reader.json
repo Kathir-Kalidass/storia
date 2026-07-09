@@ -1,0 +1,107 @@
+{
+  "persona_id": "adult_reader",
+  "name": "Adult Reader",
+  "version": "1.0.0",
+  "description": "Represents a general adult reader. Expects narrative complexity, thematic depth, and emotional sophistication. Comfortable with ambiguity, moral grey areas, and challenging prose. Reads for insight, entertainment, and resonance.",
+  "category": "reader",
+  "tags": ["reader", "adult", "mature", "complex", "sophisticated", "general"],
+  "goals": [
+    "Ensure narrative depth and thematic richness appropriate for adult readers",
+    "Balance complexity with readability — challenge without alienating",
+    "Provide emotional and intellectual satisfaction",
+    "Respect the reader's life experience and critical faculties",
+    "Support varied prose styles from transparent to literary"
+  ],
+  "supported_genres": ["literary fiction", "historical fiction", "fantasy", "mystery", "thriller", "romance", "science fiction", "all"],
+  "supported_languages": ["en", "ta", "hi", "fr", "es", "ja", "ko"],
+  "default_language": "en",
+  "tone": {
+    "formality": 0.5,
+    "darkness": 0.5,
+    "humor": 0.3,
+    "emotional_intensity": 0.55,
+    "poetic_density": 0.45,
+    "descriptive_density": 0.6
+  },
+  "writing_style": {
+    "sentence_length_target": "varied",
+    "paragraph_density": "moderate",
+    "dialogue_ratio": 0.35,
+    "narrative_distance": "medium",
+    "show_vs_tell": 0.65,
+    "metaphor_frequency": "occasional",
+    "dialect_use": "light"
+  },
+  "verification_focus": {
+    "priority_checks": ["thematic_coherence", "emotional_resonance", "narrative_depth", "character_authenticity", "prose_quality"],
+    "ignored_checks": ["vocabulary_simplicity", "sentence_length_restriction"],
+    "tolerance": {
+      "continuity": "moderate",
+      "timeline": "moderate",
+      "voice": "strict",
+      "research": "moderate"
+    },
+    "minimum_confidence": 0.75
+  },
+  "engine_overrides": {
+    "reason_modules": {
+      "enabled": ["ThemeDepthAnalyzer", "EmotionalMaturityScorer", "ComplexityBalancer"],
+      "disabled": ["VocabularyLevelChecker"],
+      "config": { "thematic_complexity": "high", "ambiguity_tolerance": 0.7 }
+    },
+    "guide_modules": {
+      "enabled": ["AdultReaderGuide", "ComplexityAdvisor", "ThemeGuide"],
+      "disabled": ["ChildFriendlyGuide"],
+      "config": { "acceptable_complexity_range": "broad" }
+    },
+    "verify_modules": {
+      "enabled": ["ThemeCoherenceVerify", "EmotionalResonanceCheck", "NarrativeDepthAudit"],
+      "disabled": ["VocabularyVerify", "SimplicityCheck"],
+      "config": { "depth_minimum_threshold": 0.6 }
+    },
+    "creative_capabilities": {
+      "enabled": ["ComplexNarration", "LayeredTheme", "AmbiguousCharacter", "SophisticatedDialogue"],
+      "disabled": ["SimplifiedVoice", "OvertMorality"],
+      "config": { "moral_complexity": "embraced", "resolution_type": "earned" }
+    }
+  },
+  "memory_overrides": {
+    "active_state_priority": ["thematic_threads", "character_moral_evolution", "narrative_complexity"],
+    "archive_frequency": "normal",
+    "scene_cache_size": 25
+  },
+  "workflow_preferences": {
+    "preferred_workflows": ["W006", "W016"],
+    "default_workflow": "W006"
+  },
+  "constraints": {
+    "incompatible_personas": ["child_reader"],
+    "required_personas": [],
+    "max_sentence_length": 65,
+    "min_sentence_length": 1,
+    "banned_patterns": ["condescending_explanation", "overt_moralizing"],
+    "required_patterns": ["thematic_depth", "character_authenticity"],
+    "content_boundaries": ["trust_reader_intelligence", "no_handholding"]
+  },
+  "prompt_prefix": "You write for an adult reader. They have lived enough to recognize truth, hurt enough to value tenderness, and read enough to spot a shortcut. Give them complexity they can sink into, characters they recognize, and a story that respects their intelligence.",
+  "examples": {
+    "opening_lines": [
+      "After forty years of marriage, the silence between them had become a third person in the house — one who ate at their table and slept in their bed.",
+      "He had not planned to retire. Retirement implied a choice, and what he felt was not choice but the slow realization that the world had stopped needing him."
+    ],
+    "dialogue_snippets": [
+      "\"Do you ever wonder who you'd be if you'd made different choices?\" \"Every day. But I've also learned that the person wondering is not the person who would have lived that life.\"",
+      "\"I don't forgive you.\" \"I'm not asking you to.\" \"Then what are you asking?\" \"To be understood. That's harder.\""
+    ],
+    "description_snippets": [
+      "The dinner party was a ritual of curated intimacy — wine that cost too much, laughter that arrived on schedule, and the unspoken agreement that everyone would pretend the marriage in the corner was happy.",
+      "Grief in her seventies was different: quieter, more patient, like a cat that had learned the house's rhythms and no longer startled at sudden movements."
+    ]
+  },
+  "metadata": {
+    "author": "storia",
+    "created": "2026-07-08T00:00:00Z",
+    "updated": "2026-07-08T00:00:00Z",
+    "version_history": ["1.0.0"]
+  }
+}

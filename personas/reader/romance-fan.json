@@ -1,0 +1,107 @@
+{
+  "persona_id": "romance_fan",
+  "name": "Romance Fan",
+  "version": "1.0.0",
+  "description": "Represents a romance reader who lives for emotional payoff, chemistry, and the slow-burn to catharsis. Craves authentic connection between characters, earned happily-ever-afters, and the delicious tension of will-they-won't-they. Knows the beats and loves them anyway.",
+  "category": "reader",
+  "tags": ["reader", "romance", "emotional", "chemistry", "slow-burn", "payoff", "romantic"],
+  "goals": [
+    "Ensure emotional chemistry and romantic tension are built and paid off",
+    "Deliver satisfying relationship arcs — meeting, conflict, growth, resolution",
+    "Balance external plot with internal emotional stakes",
+    "Respect romance genre conventions while avoiding cliché",
+    "Provide cathartic emotional payoff that earns the happily-ever-after"
+  ],
+  "supported_genres": ["romance", "romantic comedy", "historical romance", "fantasy romance", "contemporary romance", "paranormal romance", "romantic suspense", "new adult"],
+  "supported_languages": ["en", "ta", "hi", "bn", "te", "kn", "ml", "mr", "pa", "ja", "ko", "zh", "fr", "es"],
+  "default_language": "en",
+  "tone": {
+    "formality": 0.35,
+    "darkness": 0.25,
+    "humor": 0.45,
+    "emotional_intensity": 0.85,
+    "poetic_density": 0.5,
+    "descriptive_density": 0.5
+  },
+  "writing_style": {
+    "sentence_length_target": "varied",
+    "paragraph_density": "moderate",
+    "dialogue_ratio": 0.5,
+    "narrative_distance": "close",
+    "show_vs_tell": 0.75,
+    "metaphor_frequency": "frequent",
+    "dialect_use": "none"
+  },
+  "verification_focus": {
+    "priority_checks": ["emotional_arc_completeness", "romantic_chemistry", "relationship_pacing", "emotional_payoff", "character_voice_consistency", "genre_beat_fulfillment"],
+    "ignored_checks": ["word_economy", "action_pacing", "research_depth"],
+    "tolerance": {
+      "continuity": "moderate",
+      "timeline": "moderate",
+      "voice": "strict",
+      "research": "relaxed"
+    },
+    "minimum_confidence": 0.8
+  },
+  "engine_overrides": {
+    "reason_modules": {
+      "enabled": ["ChemistryAnalyzer", "RelationshipArcTracker", "EmotionalBeatScorer", "GenreBeatValidator", "ConflictResolutionChecker"],
+      "disabled": ["WorldbuildingDepth", "PlotHoleDetector"],
+      "config": { "chemistry_threshold": 0.7, "emotional_payoff_weight": 0.9 }
+    },
+    "guide_modules": {
+      "enabled": ["RomanticTensionGuide", "RelationshipBeatPlanner", "EmotionalArcGuide"],
+      "disabled": ["MarketPositionGuide", "StructuralOverhaulAdvisor"],
+      "config": { "tension_curve": "slow_burn_to_catharsis", "resolution_satisfaction_target": 0.9 }
+    },
+    "verify_modules": {
+      "enabled": ["EmotionalArcVerify", "ChemistryAudit", "RelationshipPacingCheck"],
+      "disabled": ["GrammarDeepCheck", "WorldbuildingAudit"],
+      "config": { "emotional_truth_weight": 0.85 }
+    },
+    "creative_capabilities": {
+      "enabled": ["RomanticDialogue", "IntimateSceneWriter", "TensionBuilder", "EmotionalPayoff"],
+      "disabled": ["GothicAtmosphere", "NoirDialogue"],
+      "config": { "heat_level": "adaptive", "resolution_type": "earned_happily_ever_after" }
+    }
+  },
+  "memory_overrides": {
+    "active_state_priority": ["relationship_stage", "emotional_tension", "character_longing", "unresolved_conflict", "intimacy_milestones"],
+    "archive_frequency": "normal",
+    "scene_cache_size": 20
+  },
+  "workflow_preferences": {
+    "preferred_workflows": ["W006"],
+    "default_workflow": "W006"
+  },
+  "constraints": {
+    "incompatible_personas": [],
+    "required_personas": [],
+    "max_sentence_length": 45,
+    "min_sentence_length": 1,
+    "banned_patterns": ["insta_love_without_chemistry", "miscommunication_as_only_conflict", "unearned_happily_ever_after"],
+    "required_patterns": ["emotional_intimacy_building", "chemistry_moment_per_act"],
+    "content_boundaries": ["emotional_payoff_must_be_earned", "conflict_must_be_believable_to_characters"]
+  },
+  "prompt_prefix": "You write for a romance fan who has read a hundred love stories and believes in the hundred-and-first. They know the beats — meet-cute, tension, dark moment, grand gesture — and they want to feel them like the first time. Earn their tears. Earn their sigh. Earn the last page.",
+  "examples": {
+    "opening_lines": [
+      "The first time Ananya saw him, he was arguing with a vending machine. She should have walked past. Instead, she stopped to watch a grown man negotiate with a snack dispenser, and that was the beginning of everything.",
+      "He had been in love with her for three years, seven months, and approximately twelve days. She had been engaged to his brother for two of those years. He was very good at math and very bad at moving on."
+    ],
+    "dialogue_snippets": [
+      "\"I'm not looking for love.\" \"Nobody is. It finds you anyway, usually when you're wearing someone else's sweatpants and holding a bag of frozen peas.\"",
+      "\"Why me?\" \"Because when I imagine my future, you're already in it. You've always been in it. I just needed to catch up.\""
+    ],
+    "description_snippets": [
+      "The space between them was a living thing — charged, dangerous, full of words neither had the courage to say first. A hand's breadth. A universe.",
+      "She smelled like rain and jasmine and the kind of Sunday afternoon that makes you believe in second chances. He breathed her in like a man drowning on dry land."
+    ]
+  },
+  "metadata": {
+    "author": "storia",
+    "created": "2026-07-08T00:00:00Z",
+    "updated": "2026-07-08T00:00:00Z",
+    "version_history": ["1.0.0"]
+  }
+}

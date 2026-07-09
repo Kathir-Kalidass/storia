@@ -1,0 +1,107 @@
+{
+  "persona_id": "fantasy_fan",
+  "name": "Fantasy Fan",
+  "version": "1.0.0",
+  "description": "Represents a genre-savvy fantasy reader who craves immersive worldbuilding, coherent magic systems, epic stakes, and deep lore. Reads for escape, discovery, and the thrill of a world that feels as real as their own — only more extraordinary.",
+  "category": "reader",
+  "tags": ["reader", "fantasy", "genre-savvy", "worldbuilding", "magic", "epic", "lore"],
+  "goals": [
+    "Ensure worldbuilding depth and internal consistency satisfy genre expectations",
+    "Deliver magic systems with clear rules, costs, and limitations",
+    "Provide epic stakes that feel personal as well as world-spanning",
+    "Balance lore revelation with narrative momentum — avoid info-dumps",
+    "Respect genre conventions while rewarding veteran fantasy readers"
+  ],
+  "supported_genres": ["fantasy", "epic fantasy", "high fantasy", "dark fantasy", "urban fantasy", "magical realism", "mythology", "sword and sorcery"],
+  "supported_languages": ["en", "ta", "hi", "bn", "te", "kn", "ml", "mr", "pa", "ja", "ko", "zh", "fr", "es"],
+  "default_language": "en",
+  "tone": {
+    "formality": 0.5,
+    "darkness": 0.5,
+    "humor": 0.25,
+    "emotional_intensity": 0.65,
+    "poetic_density": 0.5,
+    "descriptive_density": 0.65
+  },
+  "writing_style": {
+    "sentence_length_target": "varied",
+    "paragraph_density": "moderate",
+    "dialogue_ratio": 0.35,
+    "narrative_distance": "medium",
+    "show_vs_tell": 0.65,
+    "metaphor_frequency": "frequent",
+    "dialect_use": "light"
+  },
+  "verification_focus": {
+    "priority_checks": ["worldbuilding_consistency", "magic_system_logic", "lore_coherence", "character_arc_alignment", "stake_escalation", "genre_convention_compliance"],
+    "ignored_checks": ["word_economy", "prose_minimalism", "contemporary_realism"],
+    "tolerance": {
+      "continuity": "strict",
+      "timeline": "moderate",
+      "voice": "moderate",
+      "research": "relaxed"
+    },
+    "minimum_confidence": 0.8
+  },
+  "engine_overrides": {
+    "reason_modules": {
+      "enabled": ["WorldbuildingConsistencyCheck", "MagicSystemValidator", "LoreDepthAnalyzer", "StakeEscalator", "GenreConventionMatcher"],
+      "disabled": ["ContemporaryRealismCheck", "WordEconomyScorer"],
+      "config": { "worldbuilding_depth": "high", "magic_system_strictness": 0.8 }
+    },
+    "guide_modules": {
+      "enabled": ["WorldbuildingGuide", "MagicSystemAdvisor", "LoreRevelationPacing", "EpicScaleGuide"],
+      "disabled": ["LineEditGuide", "MinimalismGuide"],
+      "config": { "lore_density": "balanced", "magic_explanation_style": "woven_into_narrative" }
+    },
+    "verify_modules": {
+      "enabled": ["WorldbuildingAudit", "MagicCoherenceVerify", "LoreContinuityCheck"],
+      "disabled": ["GrammarVerify", "StyleGuideCompliance"],
+      "config": { "worldbuilding_contradiction_penalty": "critical" }
+    },
+    "creative_capabilities": {
+      "enabled": ["WorldDetailExpansion", "MagicSystemDescription", "EpicSetPiece", "LoreRichDialogue"],
+      "disabled": ["MinimalistProse", "ContemporarySetting"],
+      "config": { "worldbuilding_show_vs_tell": 0.6 }
+    }
+  },
+  "memory_overrides": {
+    "active_state_priority": ["world_state", "magic_rules_established", "lore_revealed", "character_lore_knowledge", "prophecy_status"],
+    "archive_frequency": "normal",
+    "scene_cache_size": 25
+  },
+  "workflow_preferences": {
+    "preferred_workflows": ["W006"],
+    "default_workflow": "W006"
+  },
+  "constraints": {
+    "incompatible_personas": [],
+    "required_personas": [],
+    "max_sentence_length": 55,
+    "min_sentence_length": 1,
+    "banned_patterns": ["info_dump_disguised_as_worldbuilding", "magic_without_consequences", "inconsistent_lore"],
+    "required_patterns": ["worldbuilding_integrated_into_scene", "magic_system_rules_implied_or_stated"],
+    "content_boundaries": ["magic_must_have_costs_or_limits", "lore_should_reward_attention", "no_deus_ex_machina_magic"]
+  },
+  "prompt_prefix": "You write for a fantasy fan who has read a thousand worlds before yours. They will spot a contradiction in your magic system before you do, and they will forgive anything except inconsistency. Build a world that feels ancient, rules that feel true, and a story that earns the genre.",
+  "examples": {
+    "opening_lines": [
+      "The last dragon died on a Tuesday, which seemed unfair — the world had ended so many times on more dramatic days, and yet this quiet Tuesday was the one that stuck.",
+      "Magic was supposed to have a cost. That was the first lesson every child learned. The second lesson was that the powerful never paid."
+    ],
+    "dialogue_snippets": [
+      "\"The prophecy says you will defeat the dark lord.\" \"Prophecies say what people want to hear. I want breakfast.\"",
+      "\"You can't unsay a true name. Once it's spoken into the world, the world listens.\" \"Then how do I take it back?\" \"You don't. You live with what you've summoned.\""
+    ],
+    "description_snippets": [
+      "The forest remembered a time before axes, before kingdoms, before the gods learned to stay in their own sky. The trees were older than language, and they did not speak in words.",
+      "The tower stood where three ley lines crossed — a wound in the world held open by stone and obsession. Shadows bled from its base like ink from a broken bottle."
+    ]
+  },
+  "metadata": {
+    "author": "storia",
+    "created": "2026-07-08T00:00:00Z",
+    "updated": "2026-07-08T00:00:00Z",
+    "version_history": ["1.0.0"]
+  }
+}
