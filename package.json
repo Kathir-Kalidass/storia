@@ -1,10 +1,11 @@
 {
   "name": "storia",
   "version": "1.0.0-alpha.1",
-  "description": "Narrative Intelligence Platform — AI-powered storytelling SDK and Agent Skill",
+  "description": "Narrative Intelligence Agent Skill — install with npx skills add Kathir-Kalidass/storia",
   "keywords": [
-    "storytelling", "narrative", "writing", "ai", "llm", "agent-skill",
-    "worldbuilding", "character-design", "plot", "fiction"
+    "agent-skill", "ai", "llm", "storytelling", "narrative", "writing",
+    "worldbuilding", "character-design", "plot", "fiction",
+    "npx-skills", "agent"
   ],
   "homepage": "https://github.com/Kathir-Kalidass/storia#readme",
   "bugs": {

@@ -1,7 +1,7 @@
 ---
 name: storia
 description: >
-  Narrative Intelligence Platform — an Agent Skill that upgrades any LLM into a professional storytelling partner.
+  Narrative Intelligence Agent Skill — upgrades any LLM into a professional storytelling partner.
   Trigger when the user wants to start a new story, continue a manuscript, plan a novel, design characters, build worlds,
   check continuity, improve dialogue, analyze pacing, fix plot holes, prepare for publication, or needs multilingual
   storytelling support. Works with English, Tamil, Hindi, Telugu, Kannada, Malayalam, Bengali, Marathi, Punjabi,
@@ -12,7 +12,9 @@ description: >
   ask for Storia.
 ---
 
-# Storia — Narrative Intelligence Platform
+# Storia — Narrative Intelligence Agent Skill
+
+Install: `npx skills add Kathir-Kalidass/storia`
 
 Storia is a published Agent Skill that provides structured storytelling intelligence to any LLM. It does not generate
 text itself — it maintains narrative memory, enforces consistency, plans story architecture, verifies quality, and
