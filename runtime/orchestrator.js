@@ -120,6 +120,7 @@ class StoriaOrchestrator {
     const WorkflowEngine = require('./workflow-engine');
     const PersonaEngine = require('./persona-engine');
     const NarrativeIntelligenceEngine = require('./narrative-intelligence-engine');
+    const PromptEngine = require('./prompt-engine');
 
     this.stateManager = new StateManager({ storiaDir: this.storiaDir });
     this.synthesizer = new Synthesizer();
@@ -128,6 +129,7 @@ class StoriaOrchestrator {
     this.optimizer = new Optimizer();
     this.personaEngine = new PersonaEngine();
     this.niEngine = new NarrativeIntelligenceEngine({ synthesizer: this.synthesizer });
+    this.promptEngine = new PromptEngine();
     this.workflowEngine = new WorkflowEngine({
       engineRegistry: {
         'orchestrator': this,
@@ -142,7 +144,9 @@ class StoriaOrchestrator {
         'personaEngine': this.personaEngine,
         'narrative-intelligence': this.niEngine,
         'narrativeIntelligence': this.niEngine,
-        'creative': this.niEngine
+        'creative': this.niEngine,
+        'prompt-engine': this.promptEngine,
+        'promptEngine': this.promptEngine
       }
     });
 

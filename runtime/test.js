@@ -1258,6 +1258,100 @@ function testWorkflowEngine() {
   });
 }
 
+function testPromptEngine() {
+  console.log('\nPrompt Engine');
+
+  test('loads system prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const agent = pe.systemPrompt('storia-agent');
+    assert.ok(agent, 'storia-agent prompt should exist');
+    assert.ok(agent.length > 50, 'should have substantial content');
+  });
+
+  test('loads narrative-framework prompt', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const framework = pe.systemPrompt('narrative-framework');
+    assert.ok(framework);
+    assert.ok(framework.length > 50);
+  });
+
+  test('loads workflow prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const w001 = pe.workflowPrompt('W001');
+    assert.ok(w001, 'W001 prompt should exist');
+    const w016 = pe.workflowPrompt('W016');
+    assert.ok(w016, 'W016 prompt should exist');
+  });
+
+  test('returns null for missing prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const missing = pe.load('system', 'nonexistent');
+    assert.strictEqual(missing, null);
+  });
+
+  test('loads engine prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const verify = pe.enginePrompt('verify-engine');
+    assert.ok(verify, 'verify-engine prompt should exist');
+  });
+
+  test('loads persona prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const persona = pe.personaPrompt('persona-composition');
+    assert.ok(persona, 'persona-composition prompt should exist');
+  });
+
+  test('composeWorkflowPrompt combines system + framework + workflow + engine', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const composed = pe.composeWorkflowPrompt('W001', {}, { engine: 'verify-engine' });
+    assert.ok(composed);
+    assert.ok(composed.includes('---'), 'should have separators');
+    const sections = composed.split('---');
+    assert.ok(sections.length >= 3, 'should combine multiple prompt sections');
+  });
+
+  test('composeVerifyPrompt includes verify mode', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const prompt = pe.composeVerifyPrompt('continuity');
+    assert.ok(prompt.includes('continuity'));
+  });
+
+  test('listPrompts returns available prompts', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const prompts = pe.listPrompts();
+    assert.ok(Array.isArray(prompts));
+    assert.ok(prompts.length > 0);
+    const workflowPrompts = prompts.filter(p => p.category === 'workflows');
+    assert.ok(workflowPrompts.length >= 16, 'should have at least 16 workflow prompts');
+  });
+
+  test('clearCache invalidates cache', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    pe.load('system', 'storia-agent');
+    assert.ok(pe.cache.has('system/storia-agent'));
+    pe.clearCache();
+    assert.strictEqual(pe.cache.has('system/storia-agent'), false);
+  });
+
+  test('cache returns cached content on subsequent loads', () => {
+    const PromptEngine = require('./prompt-engine');
+    const pe = new PromptEngine();
+    const first = pe.load('system', 'storia-agent');
+    const second = pe.load('system', 'storia-agent');
+    assert.strictEqual(first, second);
+  });
+}
+
 function testOrchestratorIntegration() {
   console.log('\nOrchestrator Integration');
 
@@ -1317,6 +1411,7 @@ function testOrchestratorIntegration() {
   testPersonaEngine();
   testNarrativeIntelligence();
   testWorkflowEngine();
+  testPromptEngine();
   testOrchestratorIntegration();
 
   await testQueue;
