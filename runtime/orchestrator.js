@@ -20,7 +20,7 @@ class StoriaOrchestrator {
   detectIntent(request) {
     const lower = request.toLowerCase();
 
-    if (this._matchAny(lower, ['start new', 'begin a', 'new story', 'new novel', 'new project', 'write a story'])) {
+    if (this._matchAny(lower, ['start new', 'start a', 'begin a', 'new story', 'new novel', 'new project', 'write a story'])) {
       return { intent: 'start_new_story', workflow: 'W001', confidence: 0.95 };
     }
     if (this._matchAny(lower, ['continue', 'next chapter', 'resume', 'next scene', 'write next'])) {

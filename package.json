@@ -1,0 +1,57 @@
+{
+  "name": "storia",
+  "version": "1.0.0-alpha.1",
+  "description": "Narrative Intelligence Platform — AI-powered storytelling SDK and Agent Skill",
+  "keywords": [
+    "storytelling", "narrative", "writing", "ai", "llm", "agent-skill",
+    "worldbuilding", "character-design", "plot", "fiction"
+  ],
+  "homepage": "https://github.com/Kathir-Kalidass/storia#readme",
+  "bugs": {
+    "url": "https://github.com/Kathir-Kalidass/storia/issues"
+  },
+  "license": "MIT",
+  "author": "Kathir Kalidass",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./errors": "./lib/errors.js",
+    "./storia": "./lib/storia.js",
+    "./adapters/*": "./lib/adapters/*.js",
+    "./plugins/*": "./lib/plugins/*.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "storia": "./lib/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "lib/",
+    "runtime/",
+    "prompts/",
+    "schemas/",
+    "personas/",
+    "workflows/",
+    "capabilities/",
+    "docs/",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node runtime/test.js",
+    "demo": "node examples/web-novel-demo.js",
+    "cli": "node lib/cli.js",
+    "prepublishOnly": "node runtime/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kathir-Kalidass/storia.git"
+  }
+}
