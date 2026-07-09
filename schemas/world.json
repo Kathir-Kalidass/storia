@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/world",
+  "title": "World State",
+  "description": "Canonical world state for a story — active locations, geography, factions, and systemic rules.",
+  "type": "object",
+  "properties": {
+    "active_locations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "location_id": { "type": "string" },
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["city", "town", "village", "wilderness", "dungeon", "palace", "tavern", "temple", "forest", "mountain", "sea", "other"]
+          },
+          "description": { "type": "string" },
+          "region": { "type": "string" },
+          "climate": { "type": "string" },
+          "population": { "type": "integer", "minimum": 0 },
+          "faction_control": { "type": "string" },
+          "notable_features": { "type": "array", "items": { "type": "string" } },
+          "connected_locations": { "type": "array", "items": { "type": "string" } },
+          "first_appearance": { "type": "string" },
+          "last_visit": { "type": "string", "format": "date-time" }
+        },
+        "required": ["location_id", "name", "type"]
+      }
+    },
+    "factions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "faction_id": { "type": "string" },
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "alignment": { "type": "string" },
+          "leaders": { "type": "array", "items": { "type": "string" } },
+          "members": { "type": "array", "items": { "type": "string" } },
+          "goals": { "type": "array", "items": { "type": "string" } },
+          "relationships": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        },
+        "required": ["faction_id", "name"]
+      }
+    },
+    "magic_systems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "rules": { "type": "array", "items": { "type": "string" } },
+          "limits": { "type": "array", "items": { "type": "string" } },
+          "practitioners": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["name"]
+      }
+    },
+    "technology_level": { "type": "string" },
+    "economy": { "type": "string" },
+    "notable_events": { "type": "array", "items": { "type": "string" } },
+    "geography_notes": { "type": "string" }
+  },
+  "required": ["active_locations"]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/verify/report",
+  "title": "Verification Report",
+  "description": "Output from a verification engine run — per-check results, severity, and an overall score.",
+  "type": "object",
+  "properties": {
+    "report_id": { "type": "string" },
+    "scene_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "check_type": { "type": "string" },
+          "status": { "type": "string", "enum": ["pass", "fail", "warning", "skip"] },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "major", "minor", "suggestion"]
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "scene_id": { "type": "string" },
+              "paragraph": { "type": "integer" }
+            }
+          },
+          "message": { "type": "string" },
+          "suggestion": { "type": "string" }
+        },
+        "required": ["check_type", "status", "severity"]
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "warnings": { "type": "integer" },
+        "critical_count": { "type": "integer" }
+      },
+      "required": ["passed", "failed", "warnings"]
+    }
+  },
+  "required": ["report_id", "scene_id", "overall_score", "checks"]
+}

@@ -1352,6 +1352,256 @@ function testPromptEngine() {
   });
 }
 
+function testSchemaValidator() {
+  console.log('\nSchema Validator');
+
+  const SchemaValidator = require('./schema-validator');
+
+  test('listSchemas returns available schemas', () => {
+    const sv = new SchemaValidator();
+    const schemas = sv.listSchemas();
+    assert.ok(schemas.length >= 10, 'should have at least 10 schema files');
+    assert.ok(schemas.includes('story'));
+    assert.ok(schemas.includes('character'));
+    assert.ok(schemas.includes('scene'));
+    assert.ok(schemas.includes('persona'));
+  });
+
+  test('validates a valid story metadata', () => {
+    const sv = new SchemaValidator();
+    const story = {
+      story_id: 'story-test-123',
+      title: 'My Novel',
+      genre: ['fantasy'],
+      language: 'en',
+      status: 'planning',
+      created_at: '2026-07-10T00:00:00Z'
+    };
+    const result = sv.validateStory(story);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('rejects story metadata missing required fields', () => {
+    const sv = new SchemaValidator();
+    const story = { title: 'Incomplete' };
+    const result = sv.validateStory(story);
+    assert.ok(!result.valid);
+    assert.ok(result.errors.some(e => e.message.includes('required')));
+  });
+
+  test('validates a valid character', () => {
+    const sv = new SchemaValidator();
+    const char = {
+      character_id: 'char_001',
+      name: 'Elena',
+      active: true
+    };
+    const result = sv.validateCharacter(char);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates character with full state', () => {
+    const sv = new SchemaValidator();
+    const char = {
+      character_id: 'char_001',
+      name: 'Elena',
+      active: true,
+      location: 'village',
+      physical_state: { fatigue: 0.3, hunger: 0.5 },
+      emotional_state: { primary_emotion: 'fear', intensity: 0.8 },
+      arc_progress: 0.5,
+      scene_count: 3
+    };
+    const result = sv.validateCharacter(char);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('rejects character missing required fields', () => {
+    const sv = new SchemaValidator();
+    const result = sv.validateCharacter({ name: 'No ID' });
+    assert.ok(!result.valid);
+    assert.ok(result.errors.some(e => e.path.includes('character_id') || e.path.includes('active')));
+  });
+
+  test('validates a valid scene', () => {
+    const sv = new SchemaValidator();
+    const scene = {
+      scene_id: 'ch001-sc001',
+      chapter: 1, sequence: 1,
+      pov_character: 'Elena',
+      location: 'forest',
+      participants: ['Elena', 'Marcus']
+    };
+    const result = sv.validateScene(scene);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('rejects scene with bad scene_id pattern', () => {
+    const sv = new SchemaValidator();
+    const scene = {
+      scene_id: 'bad-id', chapter: 1, sequence: 1,
+      pov_character: 'Elena', location: 'forest',
+      participants: ['Elena']
+    };
+    const result = sv.validateScene(scene);
+    assert.ok(!result.valid);
+    assert.ok(result.errors.some(e => e.message.includes('pattern')));
+  });
+
+  test('validates a knowledge event', () => {
+    const sv = new SchemaValidator();
+    const ev = {
+      event_id: 'evt_001', scene_id: 'ch001-sc001',
+      character_id: 'char_001', fact: 'Marcus is the heir',
+      from_type: 'secret', to_type: 'public', confidence: 0.95
+    };
+    const result = sv.validateKnowledge(ev);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates a diff object', () => {
+    const sv = new SchemaValidator();
+    const diff = {
+      version: '1.0.0', parent: '0.0.0',
+      timestamp: '2026-07-10T00:00:00Z',
+      added: [{ path: 'characters.001', value: { name: 'Elena' } }],
+      modified: [{ path: 'plot.scene_count', from: 0, to: 1 }],
+      removed: []
+    };
+    const result = sv.validateDiff(diff);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates a verification report', () => {
+    const sv = new SchemaValidator();
+    const report = {
+      report_id: 'rpt_001', scene_id: 'ch001-sc001',
+      overall_score: 85,
+      checks: [{ check_type: 'continuity', status: 'pass', severity: 'major' }]
+    };
+    const result = sv.validateReport(report);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates a persona config', () => {
+    const sv = new SchemaValidator();
+    const persona = {
+      persona_id: 'novelist', name: 'Novelist', version: '1.0.0',
+      description: 'A novelist persona', category: 'literary',
+      tone: { formality: 0.5, darkness: 0.4, humor: 0.3, emotional_intensity: 0.6, poetic_density: 0.4 },
+      writing_style: { sentence_length_target: 'varied', dialogue_ratio: 0.35, narrative_distance: 'omniscient', show_vs_tell: 0.65 },
+      constraints: {},
+      metadata: { author: 'storia', created: '2026-07-08T00:00:00Z' }
+    };
+    const result = sv.validatePersona(persona);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('rejects persona with invalid tone values', () => {
+    const sv = new SchemaValidator();
+    const persona = {
+      persona_id: 'bad', name: 'Bad', version: '1.0.0',
+      description: 'test', category: 'test',
+      tone: { formality: 1.5, darkness: 0.4, humor: 0.3, emotional_intensity: 0.6, poetic_density: 0.4 },
+      writing_style: { sentence_length_target: 'varied', dialogue_ratio: 0.35, narrative_distance: 'omniscient', show_vs_tell: 0.65 },
+      constraints: {},
+      metadata: { author: 'storia', created: '2026-07-08T00:00:00Z' }
+    };
+    const result = sv.validatePersona(persona);
+    assert.ok(!result.valid);
+  });
+
+  test('validates world state', () => {
+    const sv = new SchemaValidator();
+    const world = { active_locations: { 'forest': { location_id: 'loc_001', name: 'Whisperwood', type: 'forest' } } };
+    const result = sv.validateWorld(world);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates timeline', () => {
+    const sv = new SchemaValidator();
+    const tl = { current_time: null, current_season: 'spring', time_since_start: 0 };
+    const result = sv.validateTimeline(tl);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates reader model', () => {
+    const sv = new SchemaValidator();
+    const reader = {
+      open_questions: [{ question_id: 'q1', question: 'Who is the killer?', raised_at: '2026-07-10T00:00:00Z', importance: 0.9 }],
+      cognitive_load: 0.3, suspense_level: 0.7, emotional_curve: []
+    };
+    const result = sv.validateReader(reader);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates plot state', () => {
+    const sv = new SchemaValidator();
+    const plot = { main_plot_progress: 0.3, active_subplots: [], open_mysteries: [], active_conflicts: [], scene_count: 5 };
+    const result = sv.validatePlot(plot);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates config', () => {
+    const sv = new SchemaValidator();
+    const config = { story_id: 'story-test-123' };
+    const result = sv.validateConfig(config);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates version', () => {
+    const sv = new SchemaValidator();
+    const ver = { version: '1.2.3', parent: '1.2.2', timestamp: '2026-07-10T00:00:00Z', reason: 'scene_written', checksum: 'abc123' };
+    const result = sv.validateVersion(ver);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates engine message', () => {
+    const sv = new SchemaValidator();
+    const msg = { message_id: 'msg_001', engine_id: 'orchestrator', message_type: 'request', timestamp: '2026-07-10T00:00:00Z' };
+    const result = sv.validateMessage(msg);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('validates entire active state', () => {
+    const sv = new SchemaValidator();
+    const state = {
+      _version: '1.0.0',
+      metadata: { story_id: 'story-test-456', title: 'Test', genre: ['scifi'], language: 'en', status: 'planning', created_at: '2026-07-10T00:00:00Z', updated_at: '2026-07-10T00:00:00Z' },
+      dna: { core_themes: ['identity'], tone_profile: { formality: 0.5, darkness: 0.3, humor: 0.3, emotional_intensity: 0.5, poetic_density: 0.3 }, writing_style: { sentence_length_target: 'varied', dialogue_ratio: 0.4, narrative_distance: 'close', show_vs_tell: 0.6 } },
+      characters: { 'char_001': { character_id: 'char_001', name: 'Elena', active: true } },
+      world: { active_locations: {} },
+      timeline: { current_time: null, current_season: 'spring', time_since_start: 0 },
+      reader: { open_questions: [], cognitive_load: 0, suspense_level: 0, emotional_curve: [] },
+      plot: { main_plot_progress: 0, active_subplots: [], open_mysteries: [], active_conflicts: [], scene_count: 0 }
+    };
+    const result = sv.validateActiveState(state);
+    assert.ok(result.valid, JSON.stringify(result.errors));
+  });
+
+  test('rejects invalid active state', () => {
+    const sv = new SchemaValidator();
+    const state = { metadata: { title: 'No story_id' } };
+    const result = sv.validateActiveState(state);
+    assert.ok(!result.valid);
+  });
+
+  test('cache returns cached schema', () => {
+    const sv = new SchemaValidator();
+    const s1 = sv.loadSchema('storia/story/metadata');
+    const s2 = sv.loadSchema('storia/story/metadata');
+    assert.strictEqual(s1, s2);
+  });
+
+  test('clearCache invalidates cache', () => {
+    const sv = new SchemaValidator();
+    sv.loadSchema('storia/story/metadata');
+    assert.ok(sv.cache.has('storia/story/metadata'));
+    sv.clearCache();
+    assert.strictEqual(sv.cache.has('storia/story/metadata'), false);
+  });
+}
+
 function testOrchestratorIntegration() {
   console.log('\nOrchestrator Integration');
 
@@ -1368,6 +1618,8 @@ function testOrchestratorIntegration() {
     assert.ok(o.optimizer);
     assert.ok(o.personaEngine);
     assert.ok(o.niEngine);
+    assert.ok(o.promptEngine);
+    assert.ok(o.schemaValidator);
     fs.rmSync(tmpDir, { recursive: true });
   });
 
@@ -1412,6 +1664,7 @@ function testOrchestratorIntegration() {
   testNarrativeIntelligence();
   testWorkflowEngine();
   testPromptEngine();
+  testSchemaValidator();
   testOrchestratorIntegration();
 
   await testQueue;

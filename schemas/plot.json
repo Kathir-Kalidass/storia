@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/plot",
+  "title": "Plot State",
+  "description": "Active plot tracking — main arc progress, subplots, mysteries, conflicts, and foreshadowing.",
+  "type": "object",
+  "properties": {
+    "main_plot_progress": { "type": "number", "minimum": 0, "maximum": 1 },
+    "active_subplots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subplot_id": { "type": "string" },
+          "name": { "type": "string" },
+          "progress": { "type": "number", "minimum": 0, "maximum": 1 },
+          "connected_characters": { "type": "array", "items": { "type": "string" } },
+          "resolution_planned": { "type": "string" }
+        },
+        "required": ["subplot_id", "name", "progress"]
+      }
+    },
+    "open_mysteries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mystery_id": { "type": "string" },
+          "question": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["whodunnit", "howdunnit", "whydunnit", "secret", "revelation", "cliffhanger"]
+          },
+          "importance": { "type": "number", "minimum": 0, "maximum": 1 },
+          "reveal_by": { "type": "string" },
+          "red_herrings": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["mystery_id", "question"]
+      }
+    },
+    "active_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "conflict_id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["character_vs_character", "character_vs_self", "character_vs_society", "character_vs_nature", "character_vs_fate"]
+          },
+          "parties": { "type": "array", "items": { "type": "string" } },
+          "stakes": { "type": "string" },
+          "intensity": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "required": ["conflict_id", "type", "parties"]
+      }
+    },
+    "foreshadowing_pending": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "foreshadow_id": { "type": "string" },
+          "hint": { "type": "string" },
+          "payoff_by": { "type": "string" },
+          "subtlety": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "required": ["foreshadow_id", "hint"]
+      }
+    },
+    "scene_count": { "type": "integer", "minimum": 0 },
+    "act_structure": {
+      "type": "object",
+      "properties": {
+        "structure_type": {
+          "type": "string",
+          "enum": ["three_act", "five_act", "hero_journey", "seven_point", "fretagon", "custom"]
+        },
+        "current_act": { "type": "integer", "minimum": 1 },
+        "total_acts": { "type": "integer", "minimum": 1 },
+        "act_boundaries": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["structure_type", "current_act"]
+    },
+    "pacing_profile": {
+      "type": "object",
+      "properties": {
+        "current_pace": { "type": "string", "enum": ["slow", "moderate", "fast", "climactic"] },
+        "tension_curve": { "type": "array", "items": { "type": "number" } },
+        "slowdown_zones": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "required": ["main_plot_progress", "active_subplots", "open_mysteries", "active_conflicts", "scene_count"]
+}

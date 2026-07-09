@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/diff",
+  "title": "State Diff",
+  "description": "A computed diff between two versions of Story State, tracking added, modified, and removed paths.",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "parent": { "type": "string" },
+    "scene_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "added": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "value": {}
+        },
+        "required": ["path", "value"]
+      }
+    },
+    "modified": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "from": {},
+          "to": {}
+        },
+        "required": ["path", "from", "to"]
+      }
+    },
+    "removed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" }
+        },
+        "required": ["path"]
+      }
+    }
+  },
+  "required": ["version", "parent", "timestamp", "added", "modified", "removed"]
+}

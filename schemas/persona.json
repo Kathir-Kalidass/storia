@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/persona/config",
+  "title": "Persona Configuration",
+  "description": "Schema for a Storia persona config.json — defines role, capabilities, constraints, tone, and style overrides.",
+  "type": "object",
+  "properties": {
+    "persona_id": { "type": "string" },
+    "name": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "description": { "type": "string" },
+    "category": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "goals": { "type": "array", "items": { "type": "string" } },
+    "supported_genres": { "type": "array", "items": { "type": "string" } },
+    "supported_languages": { "type": "array", "items": { "type": "string" } },
+    "default_language": { "type": "string" },
+    "tone": {
+      "type": "object",
+      "properties": {
+        "formality": { "type": "number", "minimum": 0, "maximum": 1 },
+        "darkness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "humor": { "type": "number", "minimum": 0, "maximum": 1 },
+        "emotional_intensity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "poetic_density": { "type": "number", "minimum": 0, "maximum": 1 },
+        "descriptive_density": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["formality", "darkness", "humor", "emotional_intensity", "poetic_density"]
+    },
+    "writing_style": {
+      "type": "object",
+      "properties": {
+        "sentence_length_target": {
+          "type": "string",
+          "enum": ["short", "moderate", "long", "varied"]
+        },
+        "paragraph_density": {
+          "type": "string",
+          "enum": ["sparse", "moderate", "dense"]
+        },
+        "dialogue_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "narrative_distance": {
+          "type": "string",
+          "enum": ["close", "medium", "distant", "omniscient"]
+        },
+        "show_vs_tell": { "type": "number", "minimum": 0, "maximum": 1 },
+        "metaphor_frequency": {
+          "type": "string",
+          "enum": ["none", "occasional", "moderate", "rich"]
+        },
+        "dialect_use": {
+          "type": "string",
+          "enum": ["none", "light", "moderate", "heavy"]
+        }
+      },
+      "required": ["sentence_length_target", "dialogue_ratio", "narrative_distance", "show_vs_tell"]
+    },
+    "verification_focus": {
+      "type": "object",
+      "properties": {
+        "priority_checks": { "type": "array", "items": { "type": "string" } },
+        "ignored_checks": { "type": "array", "items": { "type": "string" } },
+        "tolerance": {
+          "type": "object",
+          "properties": {
+            "continuity": { "type": "string", "enum": ["strict", "moderate", "relaxed"] },
+            "timeline": { "type": "string", "enum": ["strict", "moderate", "relaxed"] },
+            "voice": { "type": "string", "enum": ["strict", "moderate", "relaxed"] },
+            "research": { "type": "string", "enum": ["strict", "moderate", "relaxed"] }
+          }
+        },
+        "minimum_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["priority_checks", "minimum_confidence"]
+    },
+    "engine_overrides": {
+      "type": "object",
+      "properties": {
+        "reason_modules": { "$ref": "#/$defs/module_override" },
+        "guide_modules": { "$ref": "#/$defs/module_override" },
+        "verify_modules": { "$ref": "#/$defs/module_override" },
+        "creative_capabilities": { "$ref": "#/$defs/module_override" }
+      }
+    },
+    "memory_overrides": {
+      "type": "object",
+      "properties": {
+        "active_state_priority": { "type": "array", "items": { "type": "string" } },
+        "archive_frequency": {
+          "type": "string",
+          "enum": ["lazy", "normal", "aggressive"]
+        },
+        "scene_cache_size": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "workflow_preferences": {
+      "type": "object",
+      "properties": {
+        "preferred_workflows": { "type": "array", "items": { "type": "string" } },
+        "default_workflow": { "type": "string" }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "incompatible_personas": { "type": "array", "items": { "type": "string" } },
+        "required_personas": { "type": "array", "items": { "type": "string" } },
+        "max_sentence_length": { "type": "integer", "minimum": 1 },
+        "min_sentence_length": { "type": "integer", "minimum": 1 },
+        "banned_patterns": { "type": "array", "items": { "type": "string" } },
+        "required_patterns": { "type": "array", "items": { "type": "string" } },
+        "content_boundaries": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "prompt_prefix": { "type": "string" },
+    "examples": {
+      "type": "object",
+      "properties": {
+        "opening_lines": { "type": "array", "items": { "type": "string" } },
+        "dialogue_snippets": { "type": "array", "items": { "type": "string" } },
+        "description_snippets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "created": { "type": "string", "format": "date-time" },
+        "updated": { "type": "string", "format": "date-time" },
+        "version_history": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["author", "created"]
+    }
+  },
+  "required": ["persona_id", "name", "version", "description", "category", "tone", "writing_style", "constraints", "metadata"],
+  "$defs": {
+    "module_override": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "array", "items": { "type": "string" } },
+        "disabled": { "type": "array", "items": { "type": "string" } },
+        "config": { "type": "object" }
+      }
+    }
+  }
+}

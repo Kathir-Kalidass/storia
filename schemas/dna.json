@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/story/dna",
+  "title": "Story DNA",
+  "description": "The narrative genetic code for a story — tone, style, themes, and structural rules.",
+  "type": "object",
+  "properties": {
+    "core_themes": { "type": "array", "items": { "type": "string" }, "maxItems": 5 },
+    "symbols": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "maxProperties": 20
+    },
+    "motifs": { "type": "array", "items": { "type": "string" }, "maxItems": 10 },
+    "tone_profile": {
+      "type": "object",
+      "properties": {
+        "formality": { "type": "number", "minimum": 0, "maximum": 1 },
+        "darkness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "humor": { "type": "number", "minimum": 0, "maximum": 1 },
+        "emotional_intensity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "poetic_density": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["formality", "darkness", "humor", "emotional_intensity", "poetic_density"]
+    },
+    "writing_style": {
+      "type": "object",
+      "properties": {
+        "sentence_length_target": {
+          "type": "string",
+          "enum": ["short", "moderate", "long", "varied"]
+        },
+        "dialogue_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "narrative_distance": {
+          "type": "string",
+          "enum": ["close", "medium", "distant", "omniscient"]
+        },
+        "show_vs_tell": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["sentence_length_target", "dialogue_ratio", "narrative_distance", "show_vs_tell"]
+    },
+    "genre_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule": { "type": "string" },
+          "description": { "type": "string" },
+          "severity": { "type": "string", "enum": ["required", "recommended", "optional"] }
+        },
+        "required": ["rule", "severity"]
+      }
+    },
+    "forbidden_patterns": { "type": "array", "items": { "type": "string" } },
+    "promises_to_reader": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["core_themes", "tone_profile", "writing_style"]
+}

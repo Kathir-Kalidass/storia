@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/config",
+  "title": "Storia Configuration",
+  "description": "Per-story configuration including persona stack, verification settings, memory, and optimization preferences.",
+  "type": "object",
+  "properties": {
+    "story_id": { "type": "string" },
+    "active_personas": {
+      "type": "object",
+      "properties": {
+        "primary": { "type": "string" },
+        "secondary": { "type": "string" },
+        "style": { "type": "string" },
+        "language": { "type": "string" },
+        "audience": { "type": "string" }
+      }
+    },
+    "verification_settings": {
+      "type": "object",
+      "properties": {
+        "auto_fix": { "type": "boolean" },
+        "minimum_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "strict_mode": { "type": "boolean" }
+      }
+    },
+    "memory_settings": {
+      "type": "object",
+      "properties": {
+        "max_archive_versions": { "type": "integer", "minimum": 10, "maximum": 500 },
+        "auto_archive_threshold": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "optimization_settings": {
+      "type": "object",
+      "properties": {
+        "compression_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "cache_size": { "type": "integer", "minimum": 5, "maximum": 50 }
+      }
+    }
+  },
+  "required": ["story_id"]
+}

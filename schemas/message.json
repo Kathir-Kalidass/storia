@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/engine/message",
+  "title": "Engine Message",
+  "description": "Standard inter-engine communication envelope used by the workflow pipeline.",
+  "type": "object",
+  "properties": {
+    "message_id": { "type": "string" },
+    "engine_id": { "type": "string" },
+    "message_type": {
+      "type": "string",
+      "enum": ["request", "response", "event", "error"]
+    },
+    "target_engine": { "type": "string" },
+    "workflow_id": { "type": "string" },
+    "payload": { "type": "object" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "correlation_id": { "type": "string" }
+  },
+  "required": ["message_id", "engine_id", "message_type", "timestamp"]
+}

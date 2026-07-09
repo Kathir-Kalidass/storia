@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/scene",
+  "title": "Scene",
+  "description": "Canonical representation of a single scene within a Storia story.",
+  "type": "object",
+  "properties": {
+    "scene_id": { "type": "string", "pattern": "^ch\\d{3}-sc\\d{3}$" },
+    "chapter": { "type": "integer", "minimum": 1 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "pov_character": { "type": "string" },
+    "location": { "type": "string" },
+    "time": { "type": "string", "format": "date-time" },
+    "participants": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "objective": { "type": "string", "maxLength": 500 },
+    "conflict": { "type": "string", "maxLength": 500 },
+    "turning_point": { "type": "string", "maxLength": 500 },
+    "outcome": { "type": "string", "maxLength": 500 },
+    "emotional_delta": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "intensity_change": { "type": "number" }
+      },
+      "required": ["from", "to"]
+    },
+    "state_changes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Paths in Story State that changed during this scene"
+    },
+    "summary": { "type": "string", "maxLength": 1000 }
+  },
+  "required": ["scene_id", "chapter", "sequence", "pov_character", "location", "participants"]
+}

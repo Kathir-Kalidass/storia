@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/reader",
+  "title": "Reader Model",
+  "description": "Simulated reader state — tracks open questions, cognitive load, suspense, and emotional engagement throughout the narrative.",
+  "type": "object",
+  "properties": {
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": { "type": "string" },
+          "question": { "type": "string" },
+          "raised_at": { "type": "string", "format": "date-time" },
+          "expected_answer_by": { "type": "string" },
+          "answered": { "type": "boolean" },
+          "answered_at": { "type": ["string", "null"], "format": "date-time" },
+          "importance": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "required": ["question_id", "question", "raised_at", "importance"]
+      }
+    },
+    "cognitive_load": { "type": "number", "minimum": 0, "maximum": 1 },
+    "suspense_level": { "type": "number", "minimum": 0, "maximum": 1 },
+    "emotional_curve": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scene_id": { "type": "string" },
+          "emotion": { "type": "string" },
+          "intensity": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "required": ["scene_id", "emotion", "intensity"]
+      }
+    },
+    "engagement_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "confusion_level": { "type": "number", "minimum": 0, "maximum": 1 },
+    "investment_level": { "type": "number", "minimum": 0, "maximum": 1 },
+    "predicted_ratings": {
+      "type": "object",
+      "properties": {
+        "pacing": { "type": "number", "minimum": 1, "maximum": 5 },
+        "character_depth": { "type": "number", "minimum": 1, "maximum": 5 },
+        "plot_coherence": { "type": "number", "minimum": 1, "maximum": 5 },
+        "emotional_impact": { "type": "number", "minimum": 1, "maximum": 5 }
+      }
+    }
+  },
+  "required": ["open_questions", "cognitive_load", "suspense_level", "emotional_curve"]
+}

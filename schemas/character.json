@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "storia/state/character",
+  "title": "Character State",
+  "description": "Canonical state for a single character in a Storia story.",
+  "type": "object",
+  "properties": {
+    "character_id": { "type": "string" },
+    "name": { "type": "string", "maxLength": 100 },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "active": { "type": "boolean" },
+    "location": { "type": "string" },
+    "physical_state": { "$ref": "#/$defs/physical_state" },
+    "emotional_state": { "$ref": "#/$defs/emotional_state" },
+    "relationships": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "target": { "type": "string" },
+          "type": { "type": "string" },
+          "strength": { "type": "number", "minimum": -1, "maximum": 1 },
+          "changed_at": { "type": "string", "format": "date-time" }
+        },
+        "required": ["target", "type", "strength"]
+      }
+    },
+    "voice_profile": { "$ref": "#/$defs/voice_profile" },
+    "arc_progress": { "type": "number", "minimum": 0, "maximum": 1 },
+    "active_goals": { "type": "array", "items": { "type": "string" } },
+    "active_conflicts": { "type": "array", "items": { "type": "string" } },
+    "inventory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": { "type": "string" },
+          "name": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "unique": { "type": "boolean" },
+          "acquired_at": { "type": "string", "format": "date-time" }
+        },
+        "required": ["item_id", "name", "quantity", "unique"]
+      }
+    },
+    "scene_count": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["character_id", "name", "active"],
+  "$defs": {
+    "physical_state": {
+      "type": "object",
+      "properties": {
+        "injuries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "injury_id": { "type": "string" },
+              "type": { "type": "string" },
+              "severity": {
+                "type": "string",
+                "enum": ["minor", "moderate", "severe", "critical"]
+              },
+              "body_part": { "type": "string" },
+              "scene_acquired": { "type": "string" },
+              "healed": { "type": "boolean" }
+            },
+            "required": ["injury_id", "type", "severity"]
+          }
+        },
+        "fatigue": { "type": "number", "minimum": 0, "maximum": 1 },
+        "hunger": { "type": "number", "minimum": 0, "maximum": 1 },
+        "poison_status": { "type": "array", "items": { "type": "object" } },
+        "magical_status": { "type": "array", "items": { "type": "object" } },
+        "equipment": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "emotional_state": {
+      "type": "object",
+      "properties": {
+        "primary_emotion": { "type": "string" },
+        "secondary_emotion": { "type": "string" },
+        "intensity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "arc": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scene_id": { "type": "string" },
+              "emotion": { "type": "string" },
+              "intensity": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "required": ["scene_id", "emotion", "intensity"]
+          }
+        }
+      },
+      "required": ["primary_emotion", "intensity"]
+    },
+    "voice_profile": {
+      "type": "object",
+      "properties": {
+        "vocabulary_tier": {
+          "type": "string",
+          "enum": ["simple", "moderate", "advanced", "archaic"]
+        },
+        "sentence_length": {
+          "type": "string",
+          "enum": ["short", "moderate", "long", "varied"]
+        },
+        "dialect_markers": { "type": "array", "items": { "type": "string" } },
+        "humor_style": {
+          "type": "string",
+          "enum": ["none", "dry", "sarcastic", "warm", "dark"]
+        },
+        "education_level": {
+          "type": "string",
+          "enum": ["informal", "formal", "academic", "self-taught"]
+        },
+        "emotional_expression": {
+          "type": "string",
+          "enum": ["reserved", "expressive", "volatile", "calculated"]
+        },
+        "signature_phrases": { "type": "array", "items": { "type": "string" } },
+        "language_mix": {
+          "type": "object",
+          "properties": {
+            "primary_language": { "type": "string" },
+            "secondary_language": { "type": "string" },
+            "switch_patterns": { "type": "string" }
+          }
+        }
+      },
+      "required": ["vocabulary_tier", "sentence_length"]
+    }
+  }
+}

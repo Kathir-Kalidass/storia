@@ -121,6 +121,7 @@ class StoriaOrchestrator {
     const PersonaEngine = require('./persona-engine');
     const NarrativeIntelligenceEngine = require('./narrative-intelligence-engine');
     const PromptEngine = require('./prompt-engine');
+    const SchemaValidator = require('./schema-validator');
 
     this.stateManager = new StateManager({ storiaDir: this.storiaDir });
     this.synthesizer = new Synthesizer();
@@ -130,6 +131,7 @@ class StoriaOrchestrator {
     this.personaEngine = new PersonaEngine();
     this.niEngine = new NarrativeIntelligenceEngine({ synthesizer: this.synthesizer });
     this.promptEngine = new PromptEngine();
+    this.schemaValidator = new SchemaValidator();
     this.workflowEngine = new WorkflowEngine({
       engineRegistry: {
         'orchestrator': this,
@@ -146,7 +148,9 @@ class StoriaOrchestrator {
         'narrativeIntelligence': this.niEngine,
         'creative': this.niEngine,
         'prompt-engine': this.promptEngine,
-        'promptEngine': this.promptEngine
+        'promptEngine': this.promptEngine,
+        'schema-validator': this.schemaValidator,
+        'schemaValidator': this.schemaValidator
       }
     });
 
