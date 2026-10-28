@@ -27,11 +27,11 @@ No SDK code required. The agent reads [SKILL.md](SKILL.md), discovers 49 persona
 Storia also ships as an npm package for programmatic use.
 
 ```bash
-npm install storia
+npm install @kkdass/storia
 ```
 
 ```js
-import { Storia } from 'storia';
+import { Storia } from '@kkdass/storia';
 
 const storia = new Storia();
 const result = await storia.run({ prompt: 'Start a fantasy story.' });

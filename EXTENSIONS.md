@@ -81,7 +81,7 @@ The `storia` field in `manifest.json` uses semver ranges. Storia checks this at 
 Extensions can (and should) run the same contract test suite as built-in components:
 
 ```js
-const { BackendContract, PluginContract, PersonaPackContract, WorkflowPackContract } = require('storia/test/contract');
+const { BackendContract, PluginContract, PersonaPackContract, WorkflowPackContract } = require('@kkdass/storia/test/contract');
 
 describe('My Extension', () => {
   PersonaPackContract('my-pack', './extensions/my-pack/personas');

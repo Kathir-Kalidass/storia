@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install storia
+npm install @kkdass/storia
 ```
 
 ## Your First Story
@@ -11,7 +11,7 @@ npm install storia
 Create a file `story.js`:
 
 ```js
-import { Storia } from 'storia';
+import { Storia } from '@kkdass/storia';
 
 const storia = new Storia();
 
